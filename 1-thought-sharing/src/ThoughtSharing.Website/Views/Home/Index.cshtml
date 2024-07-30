@@ -1,0 +1,16 @@
+﻿@model IEnumerable<Thought>
+@{
+    ViewBag.Title = "Thoughts list";
+}
+
+<div>
+    @foreach (var thought in Model)
+    {
+        <partial name="_Thought" model="@thought" />
+    }
+</div>
+<div>
+    <a asp-controller="Create" asp-action="Create">
+        Create new thought
+    </a>
+</div>

@@ -1,0 +1,9 @@
+﻿@using Microsoft.Extensions.Options
+@using ThoughtSharing.Website.Model
+@model Thought
+
+<a asp-controller="Home" asp-action="Thought" asp-route-id="@Model.Id">
+    <div>
+        <p>@Model.Thesis</p>
+    </div>
+</a>

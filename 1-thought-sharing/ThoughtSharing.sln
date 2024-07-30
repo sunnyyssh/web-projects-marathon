@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ThoughtSharing.Api", "src\T
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ThoughtSharing.Model", "src\ThoughtSharing.Model\ThoughtSharing.Model.csproj", "{C80F7F54-4220-4368-90AF-0C438369806D}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ThoughtSharing.Website", "src\ThoughtSharing.Website\ThoughtSharing.Website.csproj", "{388441D6-73AC-434D-A4CA-85A1AD48BFE4}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -24,5 +26,9 @@ Global
 		{C80F7F54-4220-4368-90AF-0C438369806D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C80F7F54-4220-4368-90AF-0C438369806D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C80F7F54-4220-4368-90AF-0C438369806D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{388441D6-73AC-434D-A4CA-85A1AD48BFE4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{388441D6-73AC-434D-A4CA-85A1AD48BFE4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{388441D6-73AC-434D-A4CA-85A1AD48BFE4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{388441D6-73AC-434D-A4CA-85A1AD48BFE4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

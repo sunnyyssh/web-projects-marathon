@@ -1,0 +1,9 @@
+﻿@model Thought
+@{
+    ViewBag.Title = Model.Thesis;
+}
+
+<h2>@Model.Thesis</h2>
+<h3>@Model.Description</h3>
+
+<a asp-controller="Home" asp-action="Index">All thoughts</a>
