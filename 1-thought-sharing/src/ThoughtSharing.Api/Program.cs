@@ -1,3 +1,5 @@
+using System.Text.Json;
+using Microsoft.AspNetCore.Http.Json;
 using Microsoft.EntityFrameworkCore;
 using ThoughtSharing.Model;
 
@@ -11,6 +13,10 @@ builder.Services.AddDbContext<ThoughtsDbContext>(opts =>
     {
         opts.EnableSensitiveDataLogging();
     }
+});
+builder.Services.Configure<JsonOptions>(opts =>
+{
+    opts.SerializerOptions.PropertyNamingPolicy = JsonNamingPolicy.SnakeCaseLower;
 });
 
 var app = builder.Build();

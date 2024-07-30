@@ -1,6 +1,23 @@
 ﻿@Host_Address = http://localhost:5226
 
-GET {{Host_Address}}/1
+###
 
-#
+GET {{Host_Address}}/api/thoughts/1
 
+###
+
+GET {{Host_Address}}/api/thoughts/
+
+###
+
+POST {{Host_Address}}/api/thoughts/create
+Content-Type: text/json
+
+{ "Thesis": "Lose yourself", "Description": "Lose yourself in music..." }
+
+### 
+
+PUT {{Host_Address}}/api/thoughts/update
+Content-Type: text/json
+
+{ "id": "1", "thesis": "Never give up", "description": "But sometimes.." }
