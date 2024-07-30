@@ -1,0 +1,6 @@
+﻿@Host_Address = http://localhost:5226
+
+GET {{Host_Address}}/1
+
+#
+
