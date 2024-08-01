@@ -3,11 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.0.31903.59
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ThoughtSharing.Api", "src\ThoughtSharing.Api\ThoughtSharing.Api.csproj", "{F0689543-AD13-47CA-AC5D-3861EFEBE5EC}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ThoughtSharing.Api", "ThoughtSharing.Api\ThoughtSharing.Api.csproj", "{F0689543-AD13-47CA-AC5D-3861EFEBE5EC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ThoughtSharing.Model", "src\ThoughtSharing.Model\ThoughtSharing.Model.csproj", "{C80F7F54-4220-4368-90AF-0C438369806D}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ThoughtSharing.Model", "ThoughtSharing.Model\ThoughtSharing.Model.csproj", "{C80F7F54-4220-4368-90AF-0C438369806D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ThoughtSharing.Website", "src\ThoughtSharing.Website\ThoughtSharing.Website.csproj", "{388441D6-73AC-434D-A4CA-85A1AD48BFE4}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ThoughtSharing.Website", "ThoughtSharing.Website\ThoughtSharing.Website.csproj", "{388441D6-73AC-434D-A4CA-85A1AD48BFE4}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
