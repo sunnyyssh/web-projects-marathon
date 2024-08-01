@@ -1,0 +1,14 @@
+﻿@using CatsPresenter.Website.Model
+
+<div>
+    @* <p class="text-info">@CatInfo.Id</p> *@
+    <div class=" rounded border-0 ratio ratio-1x1">
+        <img class="object-fit-cover" src="@CatInfo.ImageUrl" alt="cat" />
+    </div>
+</div>
+
+@code 
+{
+    [Parameter]
+    public required CatInfo CatInfo { get; init; }
+}

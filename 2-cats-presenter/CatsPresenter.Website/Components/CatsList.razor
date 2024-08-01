@@ -1,0 +1,49 @@
+﻿@page "/cats"
+@using CatsPresenter.Website.Model
+
+<h3>CatsList (count: @Count)</h3>
+
+<button class="btn btn-primary" @onclick="ReloadCatsAsync">Reload cats</button>
+
+<div class="grid">
+    @if (Cats is null)
+    {
+        <p>Loading cats...</p>
+    }
+    else
+    {
+        foreach (var catRow in Cats.Chunk(4))
+        {
+            <div class="row">
+                @foreach (var cat in catRow)
+                {
+                    <div class="col">
+                        <CatPreview CatInfo="@cat"></CatPreview>
+                    </div>
+                }
+            </div>
+        }
+    }
+</div>
+
+@code 
+{
+    public IEnumerable<CatInfo>? Cats { get; set; }
+    
+    [Inject]
+    public required ICatApiClient CatApiClient { get; init; }
+    
+    [Parameter]
+    public int Count { get; set; } = 28;
+
+    protected override async Task OnParametersSetAsync()
+    {
+        await ReloadCatsAsync();
+    }
+
+    public async Task ReloadCatsAsync()
+    {
+        Cats = (await CatApiClient.GetRandomCatsAsync(Count)).Take(Count);
+    }
+    
+}

@@ -1,0 +1,19 @@
+﻿@page "/host"
+@{ Layout = null; }
+@using Microsoft.AspNetCore.Authorization
+@using CatsPresenter.Website.Pages
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>@ViewBag.Title</title>
+    <link href="/lib/bootstrap/css/bootstrap.min.css" rel="stylesheet"/>
+    <base href="~/"/>
+</head>
+<body>
+<div class="m-2">
+    <component type="typeof(Routed)" render-mode="Server" />
+</div>
+<script src="_framework/blazor.server.js"></script>
+</body>
+</html>
