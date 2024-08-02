@@ -5,6 +5,8 @@ VisualStudioVersion = 17.0.31903.59
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IdentityInfo", "IdentityInfo\IdentityInfo.csproj", "{96ADC485-3BC7-454A-A203-77D7440E900D}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IdentityInfo.IdentityApi", "IdentityInfo.IdentityApi\IdentityInfo.IdentityApi.csproj", "{9ED62D85-8F6C-488A-8434-43813787B2A4}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -18,5 +20,9 @@ Global
 		{96ADC485-3BC7-454A-A203-77D7440E900D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{96ADC485-3BC7-454A-A203-77D7440E900D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{96ADC485-3BC7-454A-A203-77D7440E900D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9ED62D85-8F6C-488A-8434-43813787B2A4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9ED62D85-8F6C-488A-8434-43813787B2A4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9ED62D85-8F6C-488A-8434-43813787B2A4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9ED62D85-8F6C-488A-8434-43813787B2A4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
