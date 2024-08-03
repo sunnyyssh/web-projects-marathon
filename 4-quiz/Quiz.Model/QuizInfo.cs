@@ -1,4 +1,6 @@
-﻿namespace Quiz.Model;
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace Quiz.Model;
 
 public class QuizInfo
 {
@@ -6,5 +8,8 @@ public class QuizInfo
     
     public required string Name { get; set; }
     
-    public IReadOnlyList<QuestionInfo> Questions { get; set; } = Array.Empty<QuestionInfo>();
+    public QuizCorrectAnswers? CorrectAnswers { get; set; }
+    
+    [CollectionMinSize<QuestionInfo>(1)]
+    public List<QuestionInfo> Questions { get; set; } = new();
 }
