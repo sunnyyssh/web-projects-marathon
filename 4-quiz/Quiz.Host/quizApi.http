@@ -1,0 +1,19 @@
+@Host_BaseUrl = https://localhost:7071
+
+###
+
+GET {{Host_BaseUrl}}/api/quiz/all
+
+###
+
+GET {{Host_BaseUrl}}/api/quiz/1
+
+###
+
+GET {{Host_BaseUrl}}/api/quiz/answer/1
+Content-Type: application/json, text/json
+
+###
+
+POST {{Host_BaseUrl}}/api/quiz/create
+
