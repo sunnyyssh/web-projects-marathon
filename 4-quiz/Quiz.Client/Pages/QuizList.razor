@@ -1,0 +1,33 @@
+﻿@page "/quizzes"
+<h3>Quizzes</h3>
+
+@if (Quizzes is null)
+{
+    <p>Loading...</p>
+}
+else
+{
+    <ul>
+        @foreach (var quiz in Quizzes)
+        {
+            <li>
+                <NavLink href="@GetQuizUrl(quiz.Id)">@quiz.Name</NavLink>
+            </li>
+        }
+    </ul>
+}
+
+@code 
+{
+    [Inject]
+    public required IQuizClient QuizClient { get; set; }
+
+    public QuizInfo[]? Quizzes { get; set; }
+    
+    protected override async Task OnParametersSetAsync()
+    {
+        Quizzes = await QuizClient.GetAllQuizzesAsync();
+    }
+
+    private static string GetQuizUrl(long id) => $"/quiz/{id}";
+}

@@ -8,6 +8,7 @@ public class QuizInfo
     
     public required string Name { get; set; }
     
+    [Required]
     public QuizCorrectAnswers? CorrectAnswers { get; set; }
     
     [CollectionMinSize<QuestionInfo>(1)]
