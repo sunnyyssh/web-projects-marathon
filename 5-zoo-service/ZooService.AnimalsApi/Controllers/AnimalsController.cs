@@ -10,7 +10,7 @@ public class AnimalsController(IAnimalsRepository animalsRepository) : Controlle
     [HttpGet("all")]
     public async Task<IEnumerable<AnimalInfo>> GetAllAsync()
     {
-        return await animalsRepository.GetAllAsync();
+        return await animalsRepository.GetAllAsync(false);
     }
 
     [HttpGet("{id}")]

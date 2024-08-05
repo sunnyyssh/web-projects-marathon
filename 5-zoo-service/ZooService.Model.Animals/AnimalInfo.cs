@@ -6,5 +6,7 @@ public sealed class AnimalInfo
 
     public string Name { get; set; } = string.Empty;
 
+    public long? NaturalAreaId { get; set;}
+
     public AreaInfo? NaturalArea { get; set; }
 }

@@ -1,6 +1,1 @@
-@ZooService.AnimalsApi_HostAddress = http://localhost:5161
-
-GET {{ZooService.AnimalsApi_HostAddress}}/
-Accept: application/json
-
-###
+@AnimalsApi_HostAddress = http://localhost:5161
