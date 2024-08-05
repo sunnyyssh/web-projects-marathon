@@ -8,5 +8,6 @@ public class QuizCorrectAnswers
     
     public QuizInfo? Quiz { get; set; }
 
+    [CollectionMinSize<QuestionCorrectAnswer>(1)]
     public List<QuestionCorrectAnswer> AnswersMap { get; set; } = new();
 }
