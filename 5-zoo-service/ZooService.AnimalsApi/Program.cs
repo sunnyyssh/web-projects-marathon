@@ -5,7 +5,7 @@ using ZooService.AnimalsApi;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddDbContext<AnimalsDbContext>(opts => 
+builder.Services.AddDbContext<AnimalsDbContext>(opts =>
 {
     opts.UseSqlServer(builder.Configuration.GetConnectionString("AnimalsConnection"));
     if (builder.Environment.IsDevelopment())
@@ -13,11 +13,11 @@ builder.Services.AddDbContext<AnimalsDbContext>(opts =>
         opts.EnableSensitiveDataLogging();
     }
 });
-
+builder.Services.AddScoped<IAnimalsRepository, AnimalsDbRepository>();
 
 builder.Services.AddControllers();
 
-builder.Services.Configure<JsonOptions>(opts => 
+builder.Services.Configure<JsonOptions>(opts =>
 {
     opts.SerializerOptions.PropertyNamingPolicy = JsonNamingPolicy.SnakeCaseLower;
 });
@@ -37,5 +37,12 @@ app.UseHttpsRedirection();
 app.UseAuthorization();
 
 app.MapControllers();
+
+if (app.Environment.IsDevelopment())
+{
+    app.Services.CreateScope().ServiceProvider
+        .GetService<AnimalsDbContext>()
+        ?.AddSomeAnimals();
+}
 
 app.Run();
