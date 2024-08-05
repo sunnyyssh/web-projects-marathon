@@ -9,13 +9,14 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ZooService.AnimalsApi", "Zo
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ZooService.Tests", "ZooService.Tests\ZooService.Tests.csproj", "{EAEB981D-4A15-4D4D-BA6B-F0F5A08C4982}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ZooService.Model.Zoo", "ZooService.Zoo\ZooService.Model.Zoo.csproj", "{4EB7A5FD-97D6-4FA1-A4A7-EC4F9156AB1D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ZooService.ZoosApi", "ZooService.ZoosApi\ZooService.ZoosApi.csproj", "{7CC018C6-30C7-4808-833A-8E7C63C0E577}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
-	EndGlobalSection
-	GlobalSection(SolutionProperties) = preSolution
-		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{A97A3377-F8C7-43BC-A0F8-03284B7C8012}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
@@ -30,5 +31,16 @@ Global
 		{EAEB981D-4A15-4D4D-BA6B-F0F5A08C4982}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EAEB981D-4A15-4D4D-BA6B-F0F5A08C4982}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EAEB981D-4A15-4D4D-BA6B-F0F5A08C4982}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4EB7A5FD-97D6-4FA1-A4A7-EC4F9156AB1D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4EB7A5FD-97D6-4FA1-A4A7-EC4F9156AB1D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4EB7A5FD-97D6-4FA1-A4A7-EC4F9156AB1D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4EB7A5FD-97D6-4FA1-A4A7-EC4F9156AB1D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7CC018C6-30C7-4808-833A-8E7C63C0E577}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7CC018C6-30C7-4808-833A-8E7C63C0E577}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7CC018C6-30C7-4808-833A-8E7C63C0E577}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7CC018C6-30C7-4808-833A-8E7C63C0E577}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
 	EndGlobalSection
 EndGlobal
