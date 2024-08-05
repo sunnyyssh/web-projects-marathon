@@ -34,7 +34,7 @@ public class AnimalsDbRepository(AnimalsDbContext dbContext) : IAnimalsRepositor
             ? await dbContext.Animals.FindAsync(id)
             : await dbContext.Animals
                 .Include(a => a.NaturalArea)
-                .FirstOrDefaultAsync();
+                .FirstOrDefaultAsync(a => a.Id == id);
     }
 
     public async Task<bool> UpdateAsync(AnimalInfo animal)
