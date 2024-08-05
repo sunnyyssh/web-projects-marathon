@@ -1,12 +1,11 @@
-﻿using Microsoft.AspNetCore.Routing.Template;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using ZooService.Model.Zoo;
 
-namespace ZooService.ZooApi.Model;
+namespace ZooService.ZoosApi.Model;
 
 public class ZoosDbContext(DbContextOptions<ZoosDbContext> options) : DbContext(options)
 {
-    public DbSet<Zoo> Zoos => Set<Zoo>();
+    public DbSet<ZooInfo> Zoos => Set<ZooInfo>();
 
     public DbSet<Location> Locations => Set<Location>();
 

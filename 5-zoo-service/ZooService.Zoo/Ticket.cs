@@ -12,7 +12,7 @@ public class Ticket
 
     public long ZooId { get; set; }
 
-    public Zoo? Zoo { get; set; }
+    public ZooInfo? Zoo { get; set; }
 
     public DateTime AttendTime { get; set; }
 }

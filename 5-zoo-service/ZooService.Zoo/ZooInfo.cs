@@ -1,6 +1,6 @@
 ﻿namespace ZooService.Model.Zoo;
 
-public class Zoo
+public class ZooInfo
 {
     public long Id { get; set; }
 
