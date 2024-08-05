@@ -25,6 +25,8 @@
 
   <ItemGroup>
     <ProjectReference Include="..\ZooService.AnimalsApi\ZooService.AnimalsApi.csproj" />
+    <ProjectReference Include="..\ZooService.ZoosApi\ZooService.ZoosApi.csproj" />
+    <ProjectReference Include="..\ZooService.Zoo\ZooService.Model.Zoo.csproj" />
   </ItemGroup>
 
 </Project>
