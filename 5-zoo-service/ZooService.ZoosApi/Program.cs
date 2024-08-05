@@ -2,6 +2,16 @@ using Microsoft.EntityFrameworkCore;
 using ZooService.ZooApi.Model;
 
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Services.AddDbContext<ZoosDbContext>(opts => 
+{
+    if (builder.Environment.IsDevelopment())
+    {
+        opts.EnableSensitiveDataLogging();
+    }
+    opts.UseSqlServer(builder.Configuration.GetConnectionString("ZoosConnection"));
+});
+
 builder.Services.AddControllers();
 
 builder.Services.AddEndpointsApiExplorer();
