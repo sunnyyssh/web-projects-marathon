@@ -1,0 +1,169 @@
+﻿@page
+@using Microsoft.AspNetCore.Identity
+@using SimpleShop.Constants
+@model SignUpModel
+@{
+    Layout = "_AccountLayout";
+    ViewBag.Title = "Creating Account";
+}
+
+<form asp-page="Signup" asp-route-ReturnUrl="@Model.ReturnUrl" method="post">
+    <div asp-validation-summary="ModelOnly"></div>
+
+    <!-- Username input -->
+    <div class="form-outline mx-4 mb-4">
+        <div>
+            <label class="form-label" asp-for="Username">Username</label>
+            <span asp-validation-for="Username" class="text-danger"></span>
+        </div>
+        <input class="form-control" asp-for="Username" />
+    </div>
+
+    <!-- Email input -->
+    <div class="form-outline mx-4 mb-4">
+        <div>
+            <label class="form-label" asp-for="Email">Email address</label>
+            <span asp-validation-for="Email" class="text-danger"></span>
+        </div>
+        <input class="form-control" asp-for="Email" />
+    </div>
+
+    <!-- Password input -->
+    <div class="form-outline mx-4 mb-4">
+        <div >
+            <label class="form-label" asp-for="Password">Password</label>
+            <span asp-validation-for="Password" class="text-danger"></span>
+        </div>
+        <input type="password" asp-for="Password" class="form-control" />
+    </div>
+
+    <!-- Password confirmation -->
+    <div class="form-outline mx-4 mb-4">
+        <div >
+            <label class="form-label" asp-for="PasswordConfirmation">Password confirmation</label>
+            <span asp-validation-for="PasswordConfirmation" class="text-danger"></span>
+        </div>
+        <input type="password" asp-for="PasswordConfirmation" class="form-control" />
+    </div>
+    
+    <div class="form-outline mx-4 mb-4">
+        <div>
+            <label class="form-check-label" asp-for="Role">Choose role</label>
+            <span asp-validation-for="Role"></span>
+        </div>
+        <select class="form-select" asp-for="Role" asp-items="@(new SelectList(Model.Roles))">
+        </select>
+    </div>
+
+    <!-- 2 column grid layout for inline styling -->
+    <div class="row mb-4">
+        <div class="col d-flex justify-content-center">
+            <!-- Checkbox -->
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" asp-for="RememberMe" />
+                <label class="form-check-label" asp-for="RememberMe"> Remember me </label>
+            </div>
+        </div>
+    </div>
+
+    <div class="list-group-horizontal">
+        <!-- Submit button -->
+        <button type="submit" class="btn btn-primary btn-block m-4">Sign up</button>
+    </div>
+</form>
+
+@* ReSharper disable Html.PathError *@
+<script src="/_framework/aspnetcore-browser-refresh.js"></script>'
+@* ReSharper restore Html.PathError *@
+
+@functions
+{
+    [RequireHttps]
+    public class SignUpModel : PageModel
+    {
+        private readonly UserManager<IdentityUser> _userManager;
+        
+        private readonly SignInManager<IdentityUser> _signInManager;
+        private readonly RoleManager<IdentityRole> _roleManager;
+
+        private readonly ILogger _logger;
+
+        public SignUpModel(
+            UserManager<IdentityUser> userManager, 
+            SignInManager<IdentityUser> signInManager,
+            RoleManager<IdentityRole> roleManager,
+            ILoggerFactory loggerFactory)
+        {
+            _userManager = userManager;
+            _signInManager = signInManager;
+            _roleManager = roleManager;
+            _logger = loggerFactory.CreateLogger(LoggingConstants.CreatePageCategory(nameof(SignUpModel)));
+        }
+
+        [Required]
+        [BindProperty]
+        public string Username { get; set; } = string.Empty;
+        
+        [Required]
+        [EmailAddress]
+        [BindProperty]
+        public string Email { get; set; } = string.Empty;
+
+        [Required]
+        [BindProperty]
+        public string Password { get; set; } = string.Empty;
+
+        [Required]
+        [BindProperty]
+        public string PasswordConfirmation { get; set; } = string.Empty;
+
+        [BindProperty]
+        public bool RememberMe { get; set; }
+
+        [BindProperty]
+        public string Role { get; set; } = string.Empty;
+
+        public string[] Roles { get; set; } = { RolesConstants.Customer, RolesConstants.Supplier };
+
+        [FromQuery(Name = "ReturnUrl")]
+        public string? ReturnUrl { get; set; }
+
+        public async Task<IActionResult> OnPostAsync()
+        {
+            if (!ModelState.IsValid)
+            {
+                return Page();
+            }
+
+            var existedUser = await _userManager.FindByEmailAsync(Email);
+
+            if (existedUser is not null)
+            {
+                ModelState.AddModelError(nameof(Email), "User with this email already exists");
+                return Page();
+            }
+
+            if (Password != PasswordConfirmation)
+            {
+                ModelState.AddModelError(nameof(PasswordConfirmation), "Passwords are not the same");
+                return Page();
+            }
+
+            var createdUser = new IdentityUser(Username) { Email = Email };
+            var createResult = await _userManager.CreateAsync(createdUser, Password);
+            
+            if (createResult.Succeeded)
+            {
+                await _userManager.AddToRoleAsync(createdUser, Role);
+                await _signInManager.PasswordSignInAsync(Username, Password, RememberMe, false);
+                return Redirect(ReturnUrl ?? "/");
+            }
+
+            foreach (var error in createResult.Errors)
+            {
+                ModelState.AddModelError("", $"{error.Code}: {error.Description}");
+            }
+            return Page();
+        }
+    }
+}

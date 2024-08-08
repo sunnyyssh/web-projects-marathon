@@ -1,0 +1,26 @@
+﻿@page
+@model LogoutModel
+
+<div>
+    <h3 class="text-success mb-2">You are signed out</h3>
+    <a asp-page="Login" class="btn-primary m-2">Login</a>
+    <a asp-route="/" class="btn-outline-primary m-2">Home page</a>
+</div>
+
+@functions
+{
+    public class LogoutModel : PageModel
+    {
+        private readonly SignInManager<IdentityUser> _signInManager;
+
+        public LogoutModel(SignInManager<IdentityUser> signInManager)
+        {
+            _signInManager = signInManager;
+        }
+        
+        public async Task OnGetAsync()
+        {
+            await _signInManager.SignOutAsync();
+        }
+    }
+}
