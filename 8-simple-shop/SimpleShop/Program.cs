@@ -2,12 +2,25 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using SimpleShop.ConfigureOptions;
 using SimpleShop.Database;
+using SimpleShop.Model;
 
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddServerSideBlazor();
 builder.Services.AddControllersWithViews();
 builder.Services.AddRazorPages();
+
+builder.Services.AddDbContext<ShopDbContext>(opts =>
+{
+    if (builder.Environment.IsDevelopment())
+    {
+        opts.EnableSensitiveDataLogging();
+    }
+    opts.UseSqlServer(builder.Configuration.GetConnectionString("ShopConnection"));
+});
+
+builder.Services.AddScoped<IProductsProvider, DbProductProvider>();
+builder.Services.AddScoped<ICategoriesProvider, DbCategoriesProvider>();
 
 builder.Services.AddDbContext<IdentityApplicationContext>(opts =>
 {
@@ -17,15 +30,6 @@ builder.Services.AddDbContext<IdentityApplicationContext>(opts =>
     }
     // Connections strings are specified in project secrets with 'dotnet user-secrets' utility.
     opts.UseSqlServer(builder.Configuration.GetConnectionString("IdentityApplicationConnection"));
-});
-
-builder.Services.AddDbContext<ShopDbContext>(opts =>
-{
-    if (builder.Environment.IsDevelopment())
-    {
-        opts.EnableSensitiveDataLogging();
-    }
-    opts.UseSqlServer(builder.Configuration.GetConnectionString("ShopConnection"));
 });
 
 builder.Services.AddIdentity<IdentityUser, IdentityRole>()
@@ -47,6 +51,6 @@ app.MapControllers();
 app.MapBlazorHub();
 
 app.Services.EnsureMainRolesExist();
-// app.Services.EnsureAdminUserCreated();
+app.Services.EnsureAdminUserExists();
 
 app.Run();

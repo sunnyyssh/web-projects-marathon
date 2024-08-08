@@ -31,4 +31,33 @@ public static class SeedDatabase
             }
         }
     }
+
+    public static void EnsureAdminUserExists(this IServiceProvider services)
+    {
+        using var serviceScope = services.CreateScope();
+        
+        var configuration = serviceScope.ServiceProvider.GetRequiredService<IConfiguration>();
+        var userManager = serviceScope.ServiceProvider.GetRequiredService<UserManager<IdentityUser>>();
+
+        EnsureAsync(userManager, configuration).GetAwaiter().GetResult();
+        return;
+
+        static async Task EnsureAsync(UserManager<IdentityUser> userManager, IConfiguration configuration)
+        {
+            string username = configuration.GetRequiredSection("Admin:Username").Value!;
+
+            if (await userManager.FindByNameAsync(username) is not null)
+            {
+                return;
+            }
+
+            string email = configuration.GetRequiredSection("Admin:Email").Value!;
+            string password = configuration.GetRequiredSection("Admin:Password").Value!;
+
+            var adminUser = new IdentityUser(username) { Email = email };
+            await userManager.CreateAsync(adminUser, password);
+
+            await userManager.AddToRoleAsync(adminUser, RolesConstants.Admin);
+        }
+    }
 }

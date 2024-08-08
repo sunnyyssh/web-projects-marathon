@@ -2,5 +2,5 @@
 
 public interface IProductsProvider
 {
-
+    IQueryable<Product> Products { get; }
 }
