@@ -1,0 +1,21 @@
+﻿@model IEnumerable<Product>
+@{
+    ViewBag.Title = "Products";
+    Layout = "_Layout";
+    bool productsNotEmptyFlag = false;
+}
+
+@foreach (var product in Model)
+{
+    productsNotEmptyFlag = true;
+    <div class="mx-2 mb-2">
+        <partial name="_ProductView" model="product"/>
+    </div>
+}
+
+@if (!productsNotEmptyFlag)
+{
+    <p>You have no products</p>
+}
+
+<a asp-action="CreateProduct"></a>

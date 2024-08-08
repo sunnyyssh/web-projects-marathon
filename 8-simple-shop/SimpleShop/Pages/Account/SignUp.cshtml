@@ -7,73 +7,81 @@
     ViewBag.Title = "Creating Account";
 }
 
-<form asp-page="Signup" asp-route-ReturnUrl="@Model.ReturnUrl" method="post">
-    <div asp-validation-summary="ModelOnly"></div>
+@if (User.Identity?.IsAuthenticated ?? false)
+{
+    <p class="text-success mb-1">You are already logged in, @User.Identity.Name</p>
+    <p class="text-success-emphasis">Maybe, you want to <a asp-page="Logout">log out</a></p>
+}
+else
+{
+    <form asp-page="Signup" asp-route-ReturnUrl="@Model.ReturnUrl" method="post">
+        <div asp-validation-summary="ModelOnly"></div>
 
-    <!-- Username input -->
-    <div class="form-outline mx-4 mb-4">
-        <div>
-            <label class="form-label" asp-for="Username">Username</label>
-            <span asp-validation-for="Username" class="text-danger"></span>
+        <!-- Username input -->
+        <div class="form-outline mx-4 mb-4">
+            <div>
+                <label class="form-label" asp-for="Username">Username</label>
+                <span asp-validation-for="Username" class="text-danger"></span>
+            </div>
+            <input class="form-control" asp-for="Username" />
         </div>
-        <input class="form-control" asp-for="Username" />
-    </div>
 
-    <!-- Email input -->
-    <div class="form-outline mx-4 mb-4">
-        <div>
-            <label class="form-label" asp-for="Email">Email address</label>
-            <span asp-validation-for="Email" class="text-danger"></span>
+        <!-- Email input -->
+        <div class="form-outline mx-4 mb-4">
+            <div>
+                <label class="form-label" asp-for="Email">Email address</label>
+                <span asp-validation-for="Email" class="text-danger"></span>
+            </div>
+            <input class="form-control" asp-for="Email" />
         </div>
-        <input class="form-control" asp-for="Email" />
-    </div>
 
-    <!-- Password input -->
-    <div class="form-outline mx-4 mb-4">
-        <div >
-            <label class="form-label" asp-for="Password">Password</label>
-            <span asp-validation-for="Password" class="text-danger"></span>
+        <!-- Password input -->
+        <div class="form-outline mx-4 mb-4">
+            <div >
+                <label class="form-label" asp-for="Password">Password</label>
+                <span asp-validation-for="Password" class="text-danger"></span>
+            </div>
+            <input type="password" asp-for="Password" class="form-control" />
         </div>
-        <input type="password" asp-for="Password" class="form-control" />
-    </div>
 
-    <!-- Password confirmation -->
-    <div class="form-outline mx-4 mb-4">
-        <div >
-            <label class="form-label" asp-for="PasswordConfirmation">Password confirmation</label>
-            <span asp-validation-for="PasswordConfirmation" class="text-danger"></span>
+        <!-- Password confirmation -->
+        <div class="form-outline mx-4 mb-4">
+            <div >
+                <label class="form-label" asp-for="PasswordConfirmation">Password confirmation</label>
+                <span asp-validation-for="PasswordConfirmation" class="text-danger"></span>
+            </div>
+            <input type="password" asp-for="PasswordConfirmation" class="form-control" />
         </div>
-        <input type="password" asp-for="PasswordConfirmation" class="form-control" />
-    </div>
-    
-    <div class="form-outline mx-4 mb-4">
-        <div>
-            <label class="form-check-label" asp-for="Role">Choose role</label>
-            <span asp-validation-for="Role"></span>
-        </div>
-        <select class="form-select" asp-for="Role" asp-items="@(new SelectList(Model.Roles))">
-        </select>
-    </div>
 
-    <!-- 2 column grid layout for inline styling -->
-    <div class="row mb-4">
-        <div class="col d-flex justify-content-center">
-            <!-- Checkbox -->
-            <div class="form-check">
-                <input class="form-check-input" type="checkbox" asp-for="RememberMe" />
-                <label class="form-check-label" asp-for="RememberMe"> Remember me </label>
+        <div class="form-outline mx-4 mb-4">
+            <div>
+                <label class="form-check-label" asp-for="Role">Choose role</label>
+                <span asp-validation-for="Role"></span>
+            </div>
+            <select class="form-select" asp-for="Role" asp-items="@(new SelectList(Model.Roles))">
+            </select>
+        </div>
+
+        <!-- 2 column grid layout for inline styling -->
+        <div class="row mb-4">
+            <div class="col d-flex justify-content-center">
+                <!-- Checkbox -->
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" asp-for="RememberMe" />
+                    <label class="form-check-label" asp-for="RememberMe"> Remember me </label>
+                </div>
             </div>
         </div>
-    </div>
 
-    <div class="list-group-horizontal">
-        <!-- Submit button -->
-        <button type="submit" class="btn btn-primary btn-block m-4">Sign up</button>
-    </div>
-</form>
+        <div class="list-group-horizontal">
+            <!-- Submit button -->
+            <button type="submit" class="btn btn-primary btn-block m-4">Sign up</button>
+        </div>
+    </form>
+}
 
 @* ReSharper disable Html.PathError *@
-<script src="/_framework/aspnetcore-browser-refresh.js"></script>'
+<script src="/_framework/aspnetcore-browser-refresh.js"></script>
 @* ReSharper restore Html.PathError *@
 
 @functions

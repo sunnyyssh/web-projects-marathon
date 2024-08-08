@@ -35,6 +35,8 @@ builder.Services.AddDbContext<IdentityApplicationContext>(opts =>
 builder.Services.AddIdentity<IdentityUser, IdentityRole>()
     .AddEntityFrameworkStores<IdentityApplicationContext>();
 
+builder.Services.AddAuthorization();
+
 builder.Services.ConfigureOptions<IdentityOptionsSetup>();
 builder.Services.ConfigureOptions<JsonOptionsSetup>();
 
