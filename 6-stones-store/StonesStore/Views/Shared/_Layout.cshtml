@@ -1,0 +1,21 @@
+﻿<!DOCTYPE html>
+
+<html lang="">
+<head>
+    <title>@ViewBag.Title</title>
+    <link rel="stylesheet" href="/lib/bootstrap/css/bootstrap.min.css"/>
+    <base href="~/"/>
+</head>
+<body>
+<div class="navbar bg-dark sticky-top">
+    <div class="ms-5 mt-1">
+        <a asp-controller="Home" asp-action="Index">
+            <p class="nav-link fs-4 fw-bolder">Store</p>
+        </a>
+    </div>
+</div>
+
+@RenderBody()
+
+</body>
+</html>
