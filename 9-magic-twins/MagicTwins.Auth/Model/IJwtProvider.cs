@@ -1,8 +1,9 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using MagicTwins.Infrastructure;
+using Microsoft.AspNetCore.Identity;
 
 namespace MagicTwins.Auth.Model;
 
 public interface IJwtProvider
 {
-    JwtToken Create(IdentityUser user);
+    JwtToken Create(User user);
 }

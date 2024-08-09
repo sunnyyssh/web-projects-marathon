@@ -37,4 +37,6 @@ app.UseHttpsRedirection();
 
 app.MapControllers();
 
+app.Services.EnsureMainRolesCreated();
+
 app.Run();

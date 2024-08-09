@@ -1,6 +1,7 @@
 ﻿using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
+using MagicTwins.Infrastructure;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
@@ -19,9 +20,9 @@ public sealed class JwtProvider : IJwtProvider
         _options = options.Value;
     }
     
-    public JwtToken Create(IdentityUser user)
+    public JwtToken Create(User user)
     {
-        var claims = ResolveClaims(user);
+        var claims = user.GetClaims();
 
         var signingCredentials = new SigningCredentials(
             new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_options.Key)),
@@ -36,14 +37,5 @@ public sealed class JwtProvider : IJwtProvider
             signingCredentials);
 
         return _jwtTokenHandler.WriteToken(token);
-    }
-
-    private Claim[] ResolveClaims(IdentityUser user)
-    {
-        return new[]
-        {
-            new Claim(JwtRegisteredClaimNames.Sub, user.Id),
-            new Claim(JwtRegisteredClaimNames.Name, user.UserName!)
-        };
     }
 }

@@ -1,8 +1,7 @@
 ﻿using MagicTwins.Auth.Model;
+using MagicTwins.Infrastructure;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.ModelBinding;
-using SignInResult = Microsoft.AspNetCore.Identity.SignInResult;
 
 namespace MagicTwins.Auth.Controllers;
 
@@ -28,6 +27,10 @@ public sealed class AccountController : ControllerBase
     [HttpPost("login")]
     public async Task<IActionResult> GetTokenAsync(SignInDto signInDto)
     {
+        if (!ModelState.IsValid)
+        {
+            return BadRequest(ModelState);
+        }
         var user = await _userManager.FindByNameAsync(signInDto.UserName);
 
         if (user is null)
@@ -41,23 +44,35 @@ public sealed class AccountController : ControllerBase
         {
             return BadRequest("Signing in failed due to some reasons.");
         }
-
-        var token = _jwtProvider.Create(user);
+        
+        var token = _jwtProvider.Create(await ConvertToUserAsync(user));
         return Ok(token);
     }
 
     [HttpPost("signup")]
     public async Task<IActionResult> CreateUserAsync(SignUpDto signUpDto)
     {
+        if (!ModelState.IsValid)
+        {
+            return BadRequest(ModelState);
+        }
         var user = new IdentityUser(signUpDto.UserName);
         var createResult = await _userManager.CreateAsync(user, signUpDto.Password);
-
+        
         if (!createResult.Succeeded)
         {
             return BadRequest(createResult.Errors);
         }
 
-        var token = _jwtProvider.Create(user);
+        await _userManager.AddToRoleAsync(user, UserRoles.Admin);
+
+        var token = _jwtProvider.Create(await ConvertToUserAsync(user));
         return Ok(token);
+    }
+
+    private async Task<User> ConvertToUserAsync(IdentityUser user)
+    {
+        var roles = await _userManager.GetRolesAsync(user);
+        return new User(user.Id, user.UserName!, roles.ToList());
     }
 }
