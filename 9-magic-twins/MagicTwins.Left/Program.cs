@@ -1,7 +1,19 @@
 using MagicTwins.Left;
+using MagicTwins.Left.Database;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Services.AddDbContext<LeftDbContext>(opts =>
+{
+    opts.UseSqlServer(builder.Configuration.GetConnectionString("LeftConnection"));
+    if (builder.Environment.IsDevelopment())
+    {
+        opts.EnableSensitiveDataLogging();
+    }
+});
+builder.Services.AddScoped<IToggleService, ToggleDbService>();
 
 builder.Services.AddControllers();
 

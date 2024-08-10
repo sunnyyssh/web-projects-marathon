@@ -9,11 +9,26 @@ namespace MagicTwins.Left.Controllers;
 [ApiController]
 public sealed class LeftController : ControllerBase
 {
-    [HttpGet("index")]
-    public IActionResult Index()
+    private readonly IToggleService _toggleService;
+
+    public LeftController(IToggleService toggleService)
+    {
+        _toggleService = toggleService;
+    }
+
+    [HttpGet("isToggled")]
+    public async Task<bool> IsToggled()
     {
         var user = User.Claims.ExtractUser();
-        
-        return Ok(user);
+
+        return await _toggleService.IsToggledAsync(user.Id);
+    }
+
+    [HttpPut("toggle")]
+    public async Task<bool> Toggle()
+    {
+        var user = User.Claims.ExtractUser();
+
+        return await _toggleService.ToggleAsync(user.Id);
     }
 }
