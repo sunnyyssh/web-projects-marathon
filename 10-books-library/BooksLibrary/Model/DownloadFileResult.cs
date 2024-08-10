@@ -8,11 +8,11 @@ public sealed class DownloadFileResult
     [MemberNotNullWhen(false, nameof(ErrorMessage))]
     public bool IsSuccess { get; }
 
-    public BookFileData? Data { get; set; }
-    
+    public IBookFileData? Data { get; set; }
+
     public string? ErrorMessage { get; }
 
-    public static DownloadFileResult Success(BookFileData fileData)
+    public static DownloadFileResult Success(IBookFileData fileData)
     {
         return new DownloadFileResult(true, fileData, null);
     }
@@ -22,7 +22,7 @@ public sealed class DownloadFileResult
         return new DownloadFileResult(false, null, message);
     }
 
-    private DownloadFileResult(bool success, BookFileData? fileData, string? errorMessage)
+    private DownloadFileResult(bool success, IBookFileData? fileData, string? errorMessage)
     {
         IsSuccess = success;
         Data = fileData;

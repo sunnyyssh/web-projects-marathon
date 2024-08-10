@@ -5,47 +5,51 @@ namespace BooksLibrary.Model;
 
 public sealed class BookDatabaseStorage : IBookFilesStorage
 {
-    private readonly BookFilesDbContext _dbContext;
+    private readonly LibraryDbContext _libraryDbContext;
+    private readonly BookFilesDbContext _filesDbContext;
 
-    public BookDatabaseStorage(BookFilesDbContext dbContext)
+    public BookDatabaseStorage(LibraryDbContext libraryDbContext, BookFilesDbContext filesDbContext)
     {
-        _dbContext = dbContext;
+        _libraryDbContext = libraryDbContext;
+        _filesDbContext = filesDbContext;
     }
-    
+
     public async Task<DownloadFileResult> DownloadFileAsync(Guid bookId)
     {
-        var fileData = await _dbContext.BookFiles.FirstOrDefaultAsync(f => f.BookId == bookId);
+        var fileData = await _filesDbContext.BookFiles.FirstOrDefaultAsync(f => f.BookId == bookId);
 
         return fileData is not null
             ? DownloadFileResult.Success(fileData)
             : DownloadFileResult.Error("Book file is not found");
     }
 
-    public async Task<UploadFileResult> UploadFileAsync(Guid bookId, Stream stream)
+    public async Task<UploadFileResult> UploadFileAsync(Guid bookId, string mimeType, string fileName, Stream stream)
     {
         byte[] buffer = new byte[stream.Length];
         await stream.ReadExactlyAsync(buffer, 0, checked((int)stream.Length));
-        
-        var existedFile = await _dbContext.BookFiles.FirstOrDefaultAsync(f => f.BookId == bookId);
-        
+
+        var existedFile = await _filesDbContext.BookFiles.FirstOrDefaultAsync(f => f.BookId == bookId);
+
         if (existedFile is null)
         {
             var createdFile = new BookDatabaseFileData
             {
                 BookId = bookId,
-                Bytes = buffer
+                Bytes = buffer,
+                FileName = fileName,
+                MimeType = mimeType,
             };
-            
-            _dbContext.Add(createdFile);
-            await _dbContext.SaveChangesAsync();
-            
+
+            _filesDbContext.Add(createdFile);
+            await _filesDbContext.SaveChangesAsync();
+
             return UploadFileResult.Success(false);
         }
 
         existedFile.Bytes = buffer;
 
-        _dbContext.Update(existedFile);
-        await _dbContext.SaveChangesAsync();
+        _filesDbContext.Update(existedFile);
+        await _filesDbContext.SaveChangesAsync();
 
         return UploadFileResult.Success(true);
     }

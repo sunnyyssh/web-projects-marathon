@@ -1,0 +1,12 @@
+﻿@model BookViewModel
+@{
+    ViewBag.Title = "Edit";
+}
+
+<h2>Edit book</h2>
+
+<component type="typeof(EditViewBook)" render-mode="Server" param-BookId="@Model.BookId" param-Mode="@Model.ViewMode"/>
+
+@* ReSharper disable Html.PathError *@
+<script src="_framework/blazor.server.js"></script>
+@* ReSharper restore Html.PathError *@

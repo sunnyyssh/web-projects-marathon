@@ -1,0 +1,67 @@
+﻿<h3>EditViewBook</h3>
+
+@if (Mode is BookViewMode.Create or BookViewMode.Edit)
+{
+    @if (BookInfo is null)
+    {
+        <p>Loading...</p>
+    }
+    else
+    {
+        <EditForm Model="@BookInfo" OnValidSubmit="OnValidSubmitAsync">
+            <div class="m-2">
+                <label>.pdf or .txt file</label>
+                <InputFile OnChange="@OnInputFileChange" class="btn btn-outline-dark">File</InputFile>
+            </div>
+            <button type="submit" class="btn btn-outline-success">Submit</button>
+        </EditForm>
+    }
+}
+
+
+@code 
+{
+    [Parameter]
+    public BookViewMode Mode { get; set; }
+
+    [Parameter]
+    public Guid BookId { get; set; }
+
+    public BookInfo? BookInfo { get; set; }
+    
+    [Inject]
+    public required IServiceProvider Services { get; set; }
+
+    public IBookFilesStorage BookFilesStorage => Services.GetRequiredService<IBookFilesStorage>();
+    
+    public LibraryDbContext LibraryDbContext => Services.GetRequiredService<LibraryDbContext>();
+
+    public IBrowserFile? UploadedFile { get; set; }
+    
+    protected override async Task OnParametersSetAsync()
+    {
+        if (Mode is BookViewMode.Edit or BookViewMode.Details)
+        {
+            BookInfo = await LibraryDbContext.Books
+                .Include(b => b.Author)
+                .FirstOrDefaultAsync(b => b.Id == BookId);
+        }
+    }
+
+    private Task OnInputFileChange(InputFileChangeEventArgs args)
+    {
+        UploadedFile = args.File;
+        return Task.CompletedTask;
+    }
+
+    private async Task OnValidSubmitAsync(EditContext arg)
+    {
+        if (UploadedFile is not null)
+        {
+            var bookTitle = (await LibraryDbContext.Books.FindAsync(BookId))?.Title ?? BookId.ToString();
+            var fileName = bookTitle + BookFileFormats.MimeToExtension(UploadedFile.ContentType);
+
+            await BookFilesStorage.UploadFileAsync(BookId, UploadedFile.ContentType, fileName, UploadedFile.OpenReadStream());
+        }
+    }
+}

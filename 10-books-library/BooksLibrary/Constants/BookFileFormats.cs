@@ -2,9 +2,31 @@
 
 public static class BookFileFormats
 {
-    public static readonly string Pdf = "pdf";
+    public const string PdfExtension = ".pdf";
 
-    public static readonly string Fb2 = "fb2";
+    public const string PdfMimeType = "application/pdf";
 
-    public static readonly string Txt = "txt";
+    public const string TxtExtension = ".txt";
+
+    public const string TxtMimeType = "text/plain";
+
+    public static string? MimeToExtension(string mimeType)
+    {
+        return mimeType switch
+        {
+            PdfMimeType => PdfExtension,
+            TxtMimeType => TxtExtension,
+            _ => null,
+        };
+    }
+
+    public static string? ExtensionToMime(string extension)
+    {
+        return extension switch
+        {
+            PdfExtension => PdfMimeType,
+            TxtExtension => TxtMimeType,
+            _ => null,
+        };
+    }
 }

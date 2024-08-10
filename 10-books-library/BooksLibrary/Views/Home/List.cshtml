@@ -1,0 +1,28 @@
+﻿@model BookInfo[]
+
+@{
+    ViewBag.Title = "Books list";
+    Layout = "_Layout";
+}
+
+<h2 class="text-center bg-info mb-3">List of books</h2>
+
+<table class="table table-bordered table-primary">
+    <thead>
+    <tr>
+        <th>Title</th>
+        <th>Author</th>
+        <th>Country</th>
+    </tr>
+    </thead>
+    <tbody>
+    @foreach (var book in Model)
+    {
+        <tr>
+            <td>@book.Title</td>
+            <td>@book.Author?.FullName</td>
+            <td>@book.Author?.Country</td>
+        </tr>
+    }
+    </tbody>
+</table>

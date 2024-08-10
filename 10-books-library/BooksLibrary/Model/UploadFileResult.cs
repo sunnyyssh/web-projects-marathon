@@ -6,9 +6,9 @@ public sealed class UploadFileResult
 {
     [MemberNotNullWhen(false, nameof(ErrorMessage))]
     public bool IsSuccess { get; }
-    
+
     public bool Overwritten { get; }
-    
+
     public string? ErrorMessage { get; }
 
     public static UploadFileResult Success(bool overwritten)

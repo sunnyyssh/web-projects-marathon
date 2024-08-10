@@ -1,6 +1,10 @@
 ﻿namespace BooksLibrary.Model;
 
-public abstract class BookFileData
+public interface IBookFileData
 {
-    public abstract Stream OpenReadStream();
+    string MimeType { get; }
+
+    string FileName { get; }
+    
+    Stream OpenReadStream();
 }
