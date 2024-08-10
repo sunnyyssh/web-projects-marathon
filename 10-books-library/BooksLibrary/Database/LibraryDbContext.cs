@@ -3,9 +3,9 @@ using Microsoft.EntityFrameworkCore;
 
 namespace BooksLibrary.Database;
 
-public sealed class LibraryDataContext : DbContext
+public sealed class LibraryDbContext : DbContext
 {
-    public LibraryDataContext(DbContextOptions<LibraryDataContext> options) : base(options)
+    public LibraryDbContext(DbContextOptions<LibraryDbContext> options) : base(options)
     { }
 
     public DbSet<BookInfo> Books => Set<BookInfo>();
