@@ -2,7 +2,7 @@
 
 public interface IBookFilesStorage
 {
-    Task<DownloadFileResult> DownloadFileAsync(BookFileInfo fileInfo);
+    Task<DownloadFileResult> DownloadFileAsync(Guid bookId);
 
-    Task<UploadFileResult> UploadFileAsync(BookFileInfo fileInfo, Stream stream);
+    Task<UploadFileResult> UploadFileAsync(Guid bookId, Stream stream);
 }

@@ -12,27 +12,27 @@ public sealed class BookDatabaseStorage : IBookFilesStorage
         _dbContext = dbContext;
     }
     
-    public async Task<DownloadFileResult> DownloadFileAsync(BookFileInfo fileInfo)
+    public async Task<DownloadFileResult> DownloadFileAsync(Guid bookId)
     {
-        var fileData = await _dbContext.BookFiles.FirstOrDefaultAsync(f => f.FileInfoId == fileInfo.Id);
+        var fileData = await _dbContext.BookFiles.FirstOrDefaultAsync(f => f.BookId == bookId);
 
         return fileData is not null
             ? DownloadFileResult.Success(fileData)
             : DownloadFileResult.Error("Book file is not found");
     }
 
-    public async Task<UploadFileResult> UploadFileAsync(BookFileInfo fileInfo, Stream stream)
+    public async Task<UploadFileResult> UploadFileAsync(Guid bookId, Stream stream)
     {
         byte[] buffer = new byte[stream.Length];
         await stream.ReadExactlyAsync(buffer, 0, checked((int)stream.Length));
         
-        var existedFile = await _dbContext.BookFiles.FirstOrDefaultAsync(f => f.FileInfoId == fileInfo.Id);
+        var existedFile = await _dbContext.BookFiles.FirstOrDefaultAsync(f => f.BookId == bookId);
         
         if (existedFile is null)
         {
             var createdFile = new BookDatabaseFileData
             {
-                FileInfoId = fileInfo.Id,
+                BookId = bookId,
                 Bytes = buffer
             };
             

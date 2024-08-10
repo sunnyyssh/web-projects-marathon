@@ -11,6 +11,4 @@ public sealed class LibraryDbContext : DbContext
     public DbSet<BookInfo> Books => Set<BookInfo>();
 
     public DbSet<AuthorInfo> Authors => Set<AuthorInfo>();
-
-    public DbSet<BookFileInfo> BookFiles => Set<BookFileInfo>();
 }

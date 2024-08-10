@@ -4,7 +4,7 @@ public sealed class BookDatabaseFileData : BookFileData
 {
     public Guid Id { get; set; }
 
-    public required Guid FileInfoId { get; set; }
+    public required Guid BookId { get; set; }
 
     public required byte[] Bytes { get; set; }
     
